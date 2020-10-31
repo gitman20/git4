@@ -9,10 +9,10 @@
 
 
 
-    bool check(int x)
+    bool check(int value)
     {
       
-      if(present(M1,sub(st,st+x-1)))
+      if(present(M1,sub(st,st+value-1)))
       {
         return true;
       }
