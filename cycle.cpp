@@ -1,19 +1,26 @@
-
-void dfsc(int v){
-  color[v] = 1; // GREY
-  for(int w : adj[v]){
-    if(color[w] == 1){
-      // you found a cycle, it's easy to recover it now.
-
-        cout<<"cycle";
-
-    }
-    if(color[w] == 0) dfsc(w);
-  }
-  color[v] = 2; // BLACK
+bool is_ancestor(int u, int v)
+{
+    return tin[u] <= tin[v] && tout[u] >= tout[v];
+}
+ 
+int lca(int u, int v)
+{
+    if (is_ancestor(u, v))
+        return u;
+    if (is_ancestor(v, u))
+        return v;
+    for (int i = l; i >= 0; --i) {
+        if (!is_ancestor(up[u][i], v))
+            u = up[u][i];
+    } 
+    return up[u][0];
 }
 
-And then just call it from any white node.
-
-for(int i = 0; i < n; i++)
-  if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
+void preprocess(int root) {
+    tin.resize(n+1);
+    tout.resize(n+1);
+    timer = 0;
+    l = ceil(log2(n+1));
+    up.assign(n+1, vector<int>(l + 1));
+    dfs(root, root);
+}
