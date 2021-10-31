@@ -48,28 +48,21 @@ void dijkstra(int sx){
 }
 }
 
-void initialize()
-{
-    for(int i = 0;i < MAX;++i)
-        id[i] = i;
-}
 
-int root(int x)
+void path(int x)   //path generator----------------------
 {
-    while(id[x] != x)
-    {
-        id[x] = id[id[x]];
-        x = id[x];
-    }
-    return x;
-}
+  pat.clear();
 
-void union1(int x, int y)
-{
-    int p = root(x);
-    int q = root(y);
-    id[p] = id[q];
-}
+  while(true)
+  {
+    pat.pb(x);   
+    if(parent[x]==x)  
+     break;
+     x=parent[x];
+  }
+
+    REVERSE(pat); 
+}       /
 
 int kruskal()
 {
